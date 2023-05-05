@@ -1,0 +1,19 @@
+var defaultobj = {"lists":[{"title":"todo","items":[]},{"title":"doing","items":[]},{"title":"done","items":[]}]}
+
+let newList = [];
+
+let statarray = ["todo","doing","done" ]
+statarray.map((status)=>{
+   let obj = defaultobj.lists.filter(x=> x.title == status) 
+   
+   let array = [];
+   let respResult = respo.filter(resp=> resp.status == status )
+   array = respResult.map((todo)=>{
+       return {id:todo.id, content:todo.description, title:todo.title }
+   })
+  
+  
+   obj = {...obj[0],items:array }
+   newList.push(obj)
+  
+})
