@@ -4,6 +4,7 @@ import { idGenerator } from '../idGenerator'
 
 export interface Lists {
   title: string
+  status: string
   items: {
     id: string
     content: string
@@ -17,7 +18,8 @@ interface State {
 export const edit = {
   listIndex: 0,
   itemIndex: 0,
-  value: ''
+  value: '',
+  id: ''
 }
 
 const localStorageState = localStorage.getItem('@lists')

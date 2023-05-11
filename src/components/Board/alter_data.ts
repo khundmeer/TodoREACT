@@ -17,6 +17,7 @@ export const alterData = (respo: ITODO[]) => {
     var defaultobj = { "lists": [{ "status": "todo", "items": [] }, { "status": "doing", "items": [] }, { "status": "done", "items": [] }] }
     interface Lists {
         status: string
+        title: string
         items: {
             id: string
             content: string
@@ -32,7 +33,7 @@ export const alterData = (respo: ITODO[]) => {
         let array: any[] = [];
         let respResult = respo.filter(resp => resp.status == status)
         respResult.map((todo) => {
-            array.push({ id: todo.id, content: todo.title, title: todo.description })
+            array.push({ id: todo.id, content: todo.title, title: todo.description, status: todo.status })
         })
 
 
