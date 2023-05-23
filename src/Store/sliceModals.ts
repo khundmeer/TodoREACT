@@ -25,6 +25,7 @@ const slice = createSlice({
       edit.listIndex = payload.listIndex
       edit.itemIndex = payload.index
       edit.value = payload.value
+      edit.id = payload.id
       return {
         ...state,
         editModal: !state.editModal

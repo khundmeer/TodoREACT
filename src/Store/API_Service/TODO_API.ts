@@ -9,7 +9,23 @@ export interface ITODO {
     id: _id,
     title: string,
     description: string,
-    status: string
+    status: string,
+    list_index: number
+}
+
+export interface UpdateTODO {
+    id: _id,
+    title: string,
+    description: string,
+    status: string,
+    list_index: number
+}
+export interface updateRequest {
+    _id: _id,
+    title: string,
+    description: string,
+    status: string,
+    list_index: number
 }
 
 // Define a service using a base URL and expected endpoints
@@ -19,12 +35,27 @@ export const todoApi = createApi({
     tagTypes: ["todo"],
     endpoints: (builder) => ({
         getAllTODO: builder.query<ITODO[], void>({
-            query: (name) => `todo`,
+            query: (name) => `TODO/Get_All`,
             providesTags: ['todo']
+        }),
+        getTODObyID: builder.query<ITODO, string>({
+            query: (id) => `TODO/Get_Todo_by_Id?Todo_Id=${id}`,
+            providesTags: ['todo']
+        }),
+        updateTodo: builder.mutation<void, updateRequest>({
+            query: (todolist) => ({
+                url: "/TODO/UpdateTODOTask",
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: todolist,
+            }),
+            invalidatesTags: ["todo"],
         }),
         addNewToDo: builder.mutation<void, ITODO>({
             query: (todolist) => ({
-                url: "/TODO",
+                url: "/TODO/Insert",
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +66,7 @@ export const todoApi = createApi({
         }),
         deleteToDo: builder.mutation<void, string>({
             query: (todolist) => ({
-                url: `/TODO?Todo_Id=${todolist}`,
+                url: `/TODO/DeleteTODOTask?Todo_Id=${todolist}`,
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,4 +80,4 @@ export const todoApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetAllTODOQuery, useAddNewToDoMutation, useDeleteToDoMutation } = todoApi
+export const { useGetAllTODOQuery, useAddNewToDoMutation, useDeleteToDoMutation, useUpdateTodoMutation, useGetTODObyIDQuery } = todoApi

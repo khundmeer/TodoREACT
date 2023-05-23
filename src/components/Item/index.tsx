@@ -8,7 +8,7 @@ import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa'
 import { BsList } from 'react-icons/bs'
 
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
-import { useDeleteToDoMutation } from '../../Store/API_Service/TODO_API'
+import { useUpdateTodoMutation, useDeleteToDoMutation, useGetTODObyIDQuery } from '../../Store/API_Service/TODO_API'
 
 
 interface itemProps {
@@ -21,6 +21,8 @@ interface itemProps {
 }
 
 export const Item = ({ index, listIndex, listItem }: itemProps) => {
+
+  // const [updateTodo] = useUpdateTodoMutation();
   const dispatch = useDispatch()
   const [deleteToDo] = useDeleteToDoMutation();
   const handleDeleteItem = (id: string) => {
@@ -30,7 +32,8 @@ export const Item = ({ index, listIndex, listItem }: itemProps) => {
   }
 
   const openEditModal = () => {
-    dispatch(editModal({ listIndex, index, value: listItem.content }))
+
+    dispatch(editModal({ listIndex, index, value: listItem.content, id: listItem.id }))
   }
 
   return (
