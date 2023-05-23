@@ -14,6 +14,7 @@ interface IRootEmelemt {
 
 export const alterData = (respo: ITODO[]) => {
 
+
     var defaultobj = { "lists": [{ "status": "todo", "items": [] }, { "status": "doing", "items": [] }, { "status": "done", "items": [] }] }
     interface Lists {
         status: string
@@ -32,6 +33,12 @@ export const alterData = (respo: ITODO[]) => {
 
         let array: any[] = [];
         let respResult = respo.filter(resp => resp.status == status)
+        respResult.sort(function (a, b) {
+            return a.list_position - b.list_position;
+        });
+
+        console.log("Order by srespResult", respResult)
+
         respResult.map((todo) => {
             array.push({ id: todo.id, content: todo.title, title: todo.description, status: todo.status })
         })
