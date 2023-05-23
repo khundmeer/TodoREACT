@@ -7,6 +7,7 @@ import { Item } from '../Item'
 import { Droppable, DroppableProvided } from 'react-beautiful-dnd'
 
 interface Props {
+
   listIndex: number
   data: {
     title: string
@@ -37,6 +38,7 @@ export const List = ({ data, listIndex }: Props) => {
                 data.items.map((item, index) =>
                   <Item key={index} listItem={item} listIndex={listIndex} index={index} />
                 )
+
               }
               {provided.placeholder}
             </ul>

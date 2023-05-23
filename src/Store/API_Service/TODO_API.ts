@@ -10,7 +10,8 @@ export interface ITODO {
     title: string,
     description: string,
     status: string,
-    list_index: number
+    list_index: number,
+    list_position: number
 }
 
 export interface UpdateTODO {
@@ -26,6 +27,16 @@ export interface updateRequest {
     description: string,
     status: string,
     list_index: number
+}
+
+export interface DragandDropModel {
+    droppableId: string,
+    index: number
+}
+export interface dragandDroprequest {
+    updateRequest: updateRequest,
+    source: DragandDropModel,
+    designation: DragandDropModel
 }
 
 // Define a service using a base URL and expected endpoints
@@ -45,6 +56,17 @@ export const todoApi = createApi({
         updateTodo: builder.mutation<void, updateRequest>({
             query: (todolist) => ({
                 url: "/TODO/UpdateTODOTask",
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: todolist,
+            }),
+            invalidatesTags: ["todo"],
+        }),
+        dragAndDropTodo: builder.mutation<void, dragandDroprequest>({
+            query: (todolist) => ({
+                url: "/TODO/DragAndDrop",
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -80,4 +102,4 @@ export const todoApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetAllTODOQuery, useAddNewToDoMutation, useDeleteToDoMutation, useUpdateTodoMutation, useGetTODObyIDQuery } = todoApi
+export const { useGetAllTODOQuery, useAddNewToDoMutation, useDeleteToDoMutation, useUpdateTodoMutation, useGetTODObyIDQuery, useDragAndDropTodoMutation } = todoApi
